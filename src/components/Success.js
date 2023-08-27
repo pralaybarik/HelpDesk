@@ -1,10 +1,10 @@
 import React from "react";
 
-function Success(message) {
+function Success(props) {
     return (
         <div>
             <div className="alert alert-success" role="alert">
-                {message}
+                {props.message}
             </div>
         </div>
     );

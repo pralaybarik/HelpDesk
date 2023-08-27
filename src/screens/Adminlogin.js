@@ -2,12 +2,14 @@ import React, { useState, useEffect } from "react";
 import Navbar from "../components/Navbar";
 import Adminservice from "../service/Adminservice";
 import { useNavigate } from "react-router-dom";
+import Errornew from "../components/Errornew";
 
 function Adminlogin() {
   const navigate = useNavigate();
   const [uname, setUname] = useState("");
   const [password, setPassword] = useState("");
   const [data, setData] = useState("");
+  const [flag, setFlag] = useState(false);
 
   const handleClick = () => {
     Adminservice.getAdmin()
@@ -26,7 +28,7 @@ function Adminlogin() {
               });
           } else {
             console.log("error");
-            //Errornew("Invalid username or password!");
+            setFlag(true);
           }
         });
       })
@@ -41,6 +43,13 @@ function Adminlogin() {
       <div className="row justify-content-center mt-5">
         <div className="col-md-5">
           <div className="bs">
+            {flag ? (
+              <span>
+                <Errornew message={"Invalid Credentials"} />
+              </span>
+            ) : (
+              ""
+            )}
             <h2>Admin Login</h2>
             <input
               type="text"
@@ -68,6 +77,7 @@ function Adminlogin() {
               Login
             </button>
             <p>
+              <br />
               Need an Account?
               <span>
                 <a href="/register">Click here to Register</a>

@@ -9,7 +9,7 @@ function Loginscreen() {
   const [prn, setPrn] = useState("");
   const [password, setPassword] = useState("");
   const [data, setData] = useState("");
-
+  const [flag, setFlag] = useState(false);
 
   const handleClick = () => {
     Userservice.get()
@@ -28,7 +28,7 @@ function Loginscreen() {
               });
           } else {
             console.log("error");
-            
+            setFlag(true);
           }
         });
       })
@@ -37,14 +37,19 @@ function Loginscreen() {
       });
   };
 
-
   return (
     <div>
       <Navbar />
       <div className="row justify-content-center mt-5">
         <div className="col-md-5">
           <div className="bs">
-            
+            {flag ? (
+              <span>
+                <Errornew message={"Invalid Credentials"} />
+              </span>
+            ) : (
+              ""
+            )}
             <h2>Student Login</h2>
             <input
               type="text"

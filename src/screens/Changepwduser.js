@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import Navbaruser from "../components/Navbaruser";
 import { useParams } from "react-router-dom";
 import Userservice from "../service/Userservice";
+import Success from "../components/Success";
+import Errornew from "../components/Errornew";
 
 function Changepwduser() {
   const divstyle = {
@@ -11,26 +13,42 @@ function Changepwduser() {
   const [email, setEmail] = useState("");
   const [newpwd, setNewPwd] = useState("");
   const [cnewpwd, setCNewPwd] = useState("");
-  const {prn} = useParams();
+  const { prn } = useParams();
+  const [success, setSuccess] = useState(false);
+  const [fail, setFail] = useState(false);
+  const [showComponent, setShowComponent] = useState(false);
+
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      setShowComponent(false);
+    }, 5000);
+
+    return () => clearTimeout(timeout);
+  }, [showComponent]);
   const data = {
     email,
-    newpwd
-  }
+    newpwd,
+  };
 
   function handleClick() {
-    Userservice.changePassword(prn, data)
-      .then((response) => {
-        setEmail("");
-        setNewPwd("");
-        setCNewPwd("");
-
-        console.log("Data added ");
-      })
-      .catch((error) => {
-        console.log("Error: " + error);
-      });
+    if (newpwd === cnewpwd) {
+      Userservice.changePassword(prn, data)
+        .then((response) => {
+          setSuccess(true);
+          setEmail("");
+          setNewPwd("");
+          setCNewPwd("");
+          console.log("Data added ");
+        })
+        .catch((error) => {
+          console.log("Error: " + error);
+        });
+    } else {
+      setFail(true);
+      setShowComponent(true);
+      console.log("error");
+    }
   }
-
 
   return (
     <div>
@@ -38,6 +56,16 @@ function Changepwduser() {
       <div className="row justify-content-center mt-5">
         <div className="col-md-5">
           <div className="bs">
+            {success ? (
+              <Success message={"Password Changed Successfully."} />
+            ) : (
+              ""
+            )}
+            {fail
+              ? showComponent && (
+                  <Errornew message={"Passwords Do Not Match!"} />
+                )
+              : ""}
             <h2>Change Password</h2>
             <br />
             <div style={divstyle}>
@@ -80,7 +108,9 @@ function Changepwduser() {
                 }}
               />
               <br />
-              <button className="btn btn-primary mt-3" onClick={handleClick}>Submit</button>
+              <button className="btn btn-primary mt-3" onClick={handleClick}>
+                Submit
+              </button>
             </div>
           </div>
         </div>

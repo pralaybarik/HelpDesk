@@ -1,10 +1,10 @@
 import React from "react";
 
-function Errornew(message) {
+function Errornew(props) {
   return (
     <div>
       <div className="alert alert-danger" role="alert">
-        {message}
+        {props.message}
       </div>
     </div>
   );

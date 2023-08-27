@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Userservice from "../service/Userservice";
 import Navbaruser from "../components/Navbaruser";
 import { useParams } from "react-router-dom";
+import Success from "../components/Success";
 
 function Userscreen() {
   const divstyle = {
@@ -14,6 +15,7 @@ function Userscreen() {
   const [detail, setDetail] = useState("");
   const [data, setData] = useState({});
   const { prn } = useParams();
+  const [flag, setFlag] = useState(false);
 
   useEffect(() => {
     Userservice.getByPrn(prn)
@@ -41,7 +43,7 @@ function Userscreen() {
         setLab("");
         setTitle("");
         setDetail("");
-
+        setFlag(true);
         console.log("Data added ");
       })
       .catch((error) => {
@@ -55,6 +57,7 @@ function Userscreen() {
       <div className="row justify-content-center mt-5">
         <div className="col-md-11">
           <div className="bs">
+            {flag ? <Success message={"Form submitted successfully!"} /> : ""}
             <h2>Hello {data.name}, Raise your complaints here!</h2>
             <br />
             <div style={divstyle}>
