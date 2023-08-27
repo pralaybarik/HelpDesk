@@ -6,11 +6,24 @@ import Navbaradmin from "../components/Navbaradmin";
 function Adminview() {
   const divstyle = {
     textAlign: "left",
-    fontSize: "22px",
+    fontSize: "20px",
     margin: "20px",
   };
   const [data, setData] = useState({});
   const { id } = useParams();
+  const{id2 } = useParams();
+  const [selectedOption, setSelectedOption] = useState("");
+
+  function handleChange() {
+    Adminservice.updateStatus(id, { status: selectedOption })
+      .then((response) => {
+        console.log(response.data);
+        setData(response.data);
+      })
+      .catch((error) => {
+        console.log("Error: " + error);
+      });
+  }
 
   useEffect(() => {
     Adminservice.getById(id)
@@ -26,7 +39,7 @@ function Adminview() {
 
   return (
     <div>
-      <Navbaradmin/>
+      <Navbaradmin />
       <div className="row justify-content-center mt-5">
         <div className="col-md-11">
           <div className="bs">
@@ -41,7 +54,33 @@ function Adminview() {
               <b>Lab Number:</b> {data.lab} <br />
               <b>PC Number:</b> {data.pc} <br />
               <b>Issue Title:</b> {data.issueTitle} <br />
-              <b>Issue Description:</b> {data.issuedesc}
+              <b>Issue Description:</b> {data.issuedesc} <br />
+              <b>Ticket Status:</b> {data.status} <br />
+              <b>Update Ticket Status: </b>
+              <select
+                value={selectedOption}
+                onChange={(e) => {
+                  setSelectedOption(e.target.value);
+                }}
+              >
+                <option value="pending">Pending</option>
+                <option value="processing">Processing</option>
+                <option value="resolved">Resolved</option>
+              </select>
+              <button
+                className="btn btn-primary"
+                onClick={handleChange}
+                style={{
+                  height: "42px",
+                  width: "6%",
+                  borderRadius: "5px",
+                  marginBottom: "10px",
+                  padding: "6px",
+                  marginLeft: "1%",
+                }}
+              >
+                Save
+              </button>
             </div>
           </div>
         </div>

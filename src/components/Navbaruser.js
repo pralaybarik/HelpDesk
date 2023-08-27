@@ -1,6 +1,22 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { Link, useParams } from "react-router-dom";
+import Userservice from "../service/Userservice";
 
 function Navbaruser() {
+  const [data, setData] = useState("");
+  const { prn } = useParams();
+
+  useEffect(() => {
+    Userservice.getByPrn(prn)
+      .then((response) => {
+        console.log(prn);
+        console.log(response.data);
+        setData(response.data);
+      })
+      .catch((error) => {
+        console.log("Error: " + error);
+      });
+  }, []);
   return (
     <div>
       <nav className="navbar navbar-expand-lg">
@@ -18,15 +34,24 @@ function Navbaruser() {
                 aria-haspopup="true"
                 aria-expanded="false"
               >
-                Username
+                {data.name}
               </a>
               <div className="dropdown-menu" aria-labelledby="navbarDropdown">
-                <a className="dropdown-item" href="#">
-                  View Profile
-                </a>
-                <a className="dropdown-item" href="/user/changepwduser">
-                  Change Password
-                </a>
+                <Link
+                  to={`/user/${prn}/view-user-profile`}
+                  style={{ textDecoration: "none" }}
+                >
+                  <button className="dropdown-item" href="#">
+                    View Profile
+                  </button>
+                </Link>
+                <Link
+                  to={`/user/${prn}/change-user-password`}
+                  style={{ textDecoration: "none" }}
+                >
+                  <button className="dropdown-item">Change Password</button>
+                </Link>
+
                 <div className="dropdown-divider"></div>
                 <a className="dropdown-item" href="/">
                   Logout

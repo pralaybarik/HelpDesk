@@ -1,10 +1,36 @@
 import React, { useState, useEffect } from "react";
 import Navbaruser from "../components/Navbaruser";
+import { useParams } from "react-router-dom";
+import Userservice from "../service/Userservice";
 
 function Changepwduser() {
-  const [pwd, setPwd] = useState("");
+  const divstyle = {
+    textAlign: "left",
+    margin: "10px",
+  };
+  const [email, setEmail] = useState("");
   const [newpwd, setNewPwd] = useState("");
   const [cnewpwd, setCNewPwd] = useState("");
+  const {prn} = useParams();
+  const data = {
+    email,
+    newpwd
+  }
+
+  function handleClick() {
+    Userservice.changePassword(prn, data)
+      .then((response) => {
+        setEmail("");
+        setNewPwd("");
+        setCNewPwd("");
+
+        console.log("Data added ");
+      })
+      .catch((error) => {
+        console.log("Error: " + error);
+      });
+  }
+
 
   return (
     <div>
@@ -13,35 +39,49 @@ function Changepwduser() {
         <div className="col-md-5">
           <div className="bs">
             <h2>Change Password</h2>
-            <input
-              type="password"
-              className="form-control"
-              placeholder="Password"
-              value={pwd}
-              onChange={(e) => {
-                setPwd(e.target.value);
-              }}
-            />
-            <input
-              type="password"
-              className="form-control"
-              placeholder="Password"
-              value={newpwd}
-              onChange={(e) => {
-                setNewPwd(e.target.value);
-              }}
-            />
-            <input
-              type="password"
-              className="form-control"
-              placeholder="Password"
-              value={cnewpwd}
-              onChange={(e) => {
-                setCNewPwd(e.target.value);
-              }}
-            />
-
-            <button className="btn btn-primary mt-3">Submit</button>
+            <br />
+            <div style={divstyle}>
+              <label>
+                <b>Enter your Email:</b>
+              </label>
+              <input
+                type="text"
+                className="form-control"
+                placeholder="Email"
+                value={email}
+                onChange={(e) => {
+                  setEmail(e.target.value);
+                }}
+              />
+              <br />
+              <label>
+                <b>Enter your New Password:</b>
+              </label>
+              <input
+                type="password"
+                className="form-control"
+                placeholder="New Password"
+                value={newpwd}
+                onChange={(e) => {
+                  setNewPwd(e.target.value);
+                }}
+              />
+              <br />
+              <label>
+                <b>Retype your New Password:</b>
+              </label>
+              <input
+                type="password"
+                className="form-control"
+                placeholder="Confirm New Password"
+                value={cnewpwd}
+                onChange={(e) => {
+                  setCNewPwd(e.target.value);
+                }}
+              />
+              <br />
+              <button className="btn btn-primary mt-3" onClick={handleClick}>Submit</button>
+            </div>
           </div>
         </div>
       </div>

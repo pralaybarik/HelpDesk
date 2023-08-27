@@ -1,28 +1,39 @@
 import React, { useState, useEffect } from "react";
 import Navbar from "../components/Navbar";
+import Adminservice from "../service/Adminservice";
+import { useNavigate } from "react-router-dom";
 
 function Adminlogin() {
+  const navigate = useNavigate();
   const [uname, setUname] = useState("");
   const [password, setPassword] = useState("");
+  const [data, setData] = useState("");
 
-  function login() {
-    // const user = {
-    //   prn,
-    //   password,
-    // };
-    // Userservice.get()
-    //   .then((resp) => {
-    //     resp.data.map((obj) => {
-    //       if (obj.email === email && obj.password === password && obj.role === role) {
-    //         navigate("/userloggedin");
-    //       } else {
-    //         setError('Invalid username or password');
-    //       }
-    //   });
-    //   .catch((error) => {
-    //     console.log("Error :" + error);
-    //   });
-  }
+  const handleClick = () => {
+    Adminservice.getAdmin()
+      .then((response) => {
+        console.log(response.data);
+        response.data.map((obj) => {
+          if (obj.uname === uname && obj.password === password) {
+            Adminservice.getAdminById(obj.id)
+              .then((response) => {
+                console.log(obj.id);
+                setData(response.data);
+                navigate(`/admin/${obj.id}`);
+              })
+              .catch((error) => {
+                console.log("Error: " + error);
+              });
+          } else {
+            console.log("error");
+            //Errornew("Invalid username or password!");
+          }
+        });
+      })
+      .catch((error) => {
+        console.log("Error: " + error);
+      });
+  };
 
   return (
     <div>
@@ -34,7 +45,7 @@ function Adminlogin() {
             <input
               type="text"
               className="form-control"
-              placeholder="Email"
+              placeholder="Username"
               value={uname}
               onChange={(e) => {
                 setUname(e.target.value);
@@ -50,7 +61,12 @@ function Adminlogin() {
               }}
             />
 
-            <button className="btn btn-primary mt-3">Login</button>
+            <button
+              className="btn btn-primary mt-3 "
+              onClick={() => handleClick()}
+            >
+              Login
+            </button>
             <p>
               Need an Account?
               <span>

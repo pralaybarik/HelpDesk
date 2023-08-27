@@ -27,7 +27,7 @@ function Adminscreen() {
   }, [data]);
   return (
     <div>
-      <Navbaradmin/>
+      <Navbaradmin />
       <div className="row justify-content-center mt-5">
         <div className="col-md-11">
           <div className="bs">
@@ -43,8 +43,8 @@ function Adminscreen() {
                     <th>Lab No.</th>
                     <th>PC No.</th>
                     <th>Issue</th>
-                    <th>View Ticket</th>
-                    <th>Update Status</th>
+                    <th>Ticket Status</th>
+                    <th>View/Update Ticket</th>
                     <th>Delete Ticket</th>
                   </tr>
                 </thead>
@@ -56,19 +56,13 @@ function Adminscreen() {
                       <td>{item.lab}</td>
                       <td>{item.pc}</td>
                       <td>{item.issueTitle}</td>
+                      <td>{item.status}</td>
                       <td>
                         <Link to={`/admin/view/${item.id}`}>
                           <button className="btn btn-primary mt-3">
                             View Ticket
                           </button>
                         </Link>
-                      </td>
-                      <td>
-                        <select>
-                          <option>Pending</option>
-                          <option>Processing</option>
-                          <option>Resolved</option>
-                        </select>
                       </td>
                       <td>
                         <button

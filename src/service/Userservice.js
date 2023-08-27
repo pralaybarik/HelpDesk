@@ -10,4 +10,12 @@ const post = (data) => {
   return axios.post(url, data);
 };
 
-export default { get, post };
+const getByPrn = (prn) => {
+  return axios.get(url + `/${prn}`);
+};
+
+const changePassword = (prn, data) => {
+  return axios.put(url + `/${prn}`, data);
+};
+
+export default { get, post, getByPrn, changePassword };

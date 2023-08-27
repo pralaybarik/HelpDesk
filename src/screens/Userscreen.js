@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Userservice from "../service/Userservice";
 import Navbaruser from "../components/Navbaruser";
+import { useParams } from "react-router-dom";
 
 function Userscreen() {
   const divstyle = {
@@ -11,6 +12,20 @@ function Userscreen() {
   const [lab, setLab] = useState("");
   const [title, setTitle] = useState("");
   const [detail, setDetail] = useState("");
+  const [data, setData] = useState({});
+  const { prn } = useParams();
+
+  useEffect(() => {
+    Userservice.getByPrn(prn)
+      .then((response) => {
+        console.log(prn);
+        console.log(response.data);
+        setData(response.data);
+      })
+      .catch((error) => {
+        console.log("Error: " + error);
+      });
+  }, []);
 
   const info = {
     pc,
@@ -22,7 +37,12 @@ function Userscreen() {
   function handleClick() {
     Userservice.post(info)
       .then((response) => {
-        console.log("data added ");
+        setPc("");
+        setLab("");
+        setTitle("");
+        setDetail("");
+
+        console.log("Data added ");
       })
       .catch((error) => {
         console.log("Error: " + error);
@@ -35,7 +55,7 @@ function Userscreen() {
       <div className="row justify-content-center mt-5">
         <div className="col-md-11">
           <div className="bs">
-            <h2>Hello User, Raise your complaints here!</h2>
+            <h2>Hello {data.name}, Raise your complaints here!</h2>
             <br />
             <div style={divstyle}>
               <label>
