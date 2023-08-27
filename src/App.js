@@ -13,6 +13,7 @@ import Userviewprofile from "./screens/Userviewprofile";
 import Adminviewprofile from "./screens/Adminviewprofile";
 import About from "./screens/About";
 import Contactus from "./screens/Contactus";
+import Pagenotfound from "./screens/Pagenotfound";
 
 function App() {
   return (
@@ -57,6 +58,8 @@ function App() {
             path="/admin/:id/view-admin-profile"
             element={<Adminviewprofile />}
           />
+          {/* Routing for Page Not Found */}
+          <Route path="/*" element={<Pagenotfound />} />
         </Routes>
       </BrowserRouter>
     </div>
