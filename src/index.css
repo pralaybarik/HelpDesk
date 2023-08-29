@@ -93,11 +93,6 @@ code {
   margin-left: auto !important;
 }
 
-.navbar-n {
-  margin: auto !important;
-  margin-left: 81% !important;
-}
-
 .nav-item-dropdown {
   margin-left: auto !important;
 }
@@ -147,7 +142,17 @@ table {
   font-size: large;
   border-collapse: separate;
   border-spacing: 10px;
+  counter-reset: serial-number;
 }
+
+tbody tr {
+  counter-increment: serial-number;
+}
+
+tbody tr td:first-child::before {
+  content: counter(serial-number);
+}
+
 
 h3 {
   margin-right: 80%;
@@ -160,3 +165,6 @@ textarea {
   margin-top: 10px;
   border:1px solid black !important;
 }
+
+
+

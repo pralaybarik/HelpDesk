@@ -14,6 +14,8 @@ import Adminviewprofile from "./screens/Adminviewprofile";
 import About from "./screens/About";
 import Contactus from "./screens/Contactus";
 import Pagenotfound from "./screens/Pagenotfound";
+import Adduser from "./screens/Adduser";
+import Userticketdetails from "./screens/Userticketdetails";
 
 function App() {
   return (
@@ -33,14 +35,16 @@ function App() {
           {/* Routing for User screen */}
           <Route path="/user/:prn" element={<Userscreen />} />
           {/* Routing for Admin screen */}
-          <Route path="/admin/:id" element={<Adminscreen />} />
+          <Route path="/admin/:uname" element={<Adminscreen />} />
           {/* Routing for new admin registration */}
-          <Route path="/register" element={<Registerscreen />} />
+          <Route path="/admin/:uname/register-admin" element={<Registerscreen />} />
+          {/* Routing for new student registration */}
+          <Route path="/admin/:uname/register-user" element={<Adduser />} />
           {/* Routing for viewing a particular student ticket details */}
-          <Route path="/admin/view/:id" element={<Adminview />} />
+          <Route path="/admin/view/:ticketId" element={<Adminview />} />
           {/* Routing for changing the admin password */}
           <Route
-            path="/admin/:id/change-admin-password"
+            path="/admin/:uname/change-admin-password"
             element={<Changepwdadmin />}
           />
           {/* Routing for changing the user password */}
@@ -53,9 +57,14 @@ function App() {
             path="/user/:prn/view-user-profile"
             element={<Userviewprofile />}
           />
+          {/* Routing for showing the ticket description of the user */}
+          <Route
+            path="/user/:prn/view-user-profile/ticket-details/:ticketId"
+            element={<Userticketdetails />}
+          />
           {/* Routing for showing the profile of the admin */}
           <Route
-            path="/admin/:id/view-admin-profile"
+            path="/admin/:uname/view-admin-profile"
             element={<Adminviewprofile />}
           />
           {/* Routing for Page Not Found */}

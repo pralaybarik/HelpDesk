@@ -10,15 +10,13 @@ function Adminview() {
     margin: "20px",
   };
   const [data, setData] = useState({});
-  const { id } = useParams();
-  const{id2 } = useParams();
+  const { ticketId } = useParams();
   const [selectedOption, setSelectedOption] = useState("");
 
   function handleChange() {
-    Adminservice.updateStatus(id, { status: selectedOption })
+    Adminservice.updateStatus(ticketId,selectedOption)
       .then((response) => {
         console.log(response.data);
-        setData(response.data);
       })
       .catch((error) => {
         console.log("Error: " + error);
@@ -26,16 +24,16 @@ function Adminview() {
   }
 
   useEffect(() => {
-    Adminservice.getById(id)
+    Adminservice.getTicketByTicketId(ticketId)
       .then((response) => {
-        console.log(id);
+        console.log(ticketId);
         console.log(response.data);
         setData(response.data);
       })
       .catch((error) => {
         console.log("Error: " + error);
       });
-  }, []);
+  }, [data]);
 
   return (
     <div>
@@ -45,16 +43,13 @@ function Adminview() {
           <div className="bs">
             <h2>Detailed Ticket Description:</h2>
             <div style={divstyle}>
-              <b>Issue Number:</b> {data.id} <br />
-              <b>Ticket Number:</b> {data.ticketid} <br />
+              <b>Ticket Number:</b> {data.ticketId} <br />
               <b>Student Name:</b> {data.name} <br />
               <b>Email:</b> {data.email} <br />
               <b>Student PRN:</b> {data.prn} <br />
-              <b>Course Name:</b> {data.course} <br />
-              <b>Lab Number:</b> {data.lab} <br />
-              <b>PC Number:</b> {data.pc} <br />
+              <b>System Id:</b> {data.systemId} <br />
               <b>Issue Title:</b> {data.issueTitle} <br />
-              <b>Issue Description:</b> {data.issuedesc} <br />
+              <b>Issue Description:</b> {data.issueDescription} <br />
               <b>Ticket Status:</b> {data.status} <br />
               <b>Update Ticket Status: </b>
               <select
@@ -63,9 +58,9 @@ function Adminview() {
                   setSelectedOption(e.target.value);
                 }}
               >
-                <option value="pending">Pending</option>
-                <option value="processing">Processing</option>
-                <option value="resolved">Resolved</option>
+                <option value="PENDING">Pending</option>
+                <option value="PROCESSING">Processing</option>
+                <option value="RESOLVED">Resolved</option>
               </select>
               <button
                 className="btn btn-primary"
@@ -79,7 +74,7 @@ function Adminview() {
                   marginLeft: "1%",
                 }}
               >
-                Save
+                Update
               </button>
             </div>
           </div>

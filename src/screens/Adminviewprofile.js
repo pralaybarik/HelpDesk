@@ -10,10 +10,10 @@ function Adminviewprofile() {
     margin: "20px",
   };
   const [data, setData] = useState({});
-  const { id } = useParams();
+  const { uname } = useParams();
 
   useEffect(() => {
-    Adminservice.getAdminById(id)
+    Adminservice.getByUname(uname)
       .then((response) => {
         console.log(response.data);
         setData(response.data);
@@ -31,7 +31,6 @@ function Adminviewprofile() {
           <div className="bs">
             <h2>Your Profile: </h2>
             <div style={divstyle}>
-              <b>Id:</b> {data.id} <br />
               <b>Name:</b> {data.name} <br />
               <b>Email:</b> {data.email} <br />
               <b>User Name:</b> {data.uname} <br />

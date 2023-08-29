@@ -2,18 +2,19 @@ import React, { useState, useEffect } from "react";
 import Adminservice from "../service/Adminservice";
 import { Link } from "react-router-dom";
 import Navbaradmin from "../components/Navbaradmin";
+import Registeradmin from "../components/Registeradmin";
+import Registeruser from "../components/Registeruser";
+// const Registerstudent = () => {
+//   return (
+//     <Link to="/admin/:uname/register-user">
+//       <button className="btn btn-primary mt-3">Add New Student</button>
+//     </Link>
+//   );
+// };
 
-const RegisterButton = () => {
-  return (
-    <Link to="/register">
-      <button className="btn btn-primary mt-3">Add New Admin</button>
-    </Link>
-  );
-};
-
-const handleDelete = (id) => {
+const handleDelete = (ticketId) => {
   if (window.confirm("Are you sure you want to delete this ticket?")) {
-    Adminservice.deleteById(id);
+    Adminservice.deleteByTicketId(ticketId);
   }
 };
 
@@ -21,8 +22,10 @@ function Adminscreen() {
   const [data, setData] = useState([]);
 
   useEffect(() => {
-    Adminservice.getAll()
-      .then((response) => setData(response.data))
+    Adminservice.getAllTickets()
+      .then((response) => {
+        setData(response.data);
+      })
       .catch((error) => console.log(error));
   }, [data]);
   return (
@@ -32,7 +35,7 @@ function Adminscreen() {
         <div className="col-md-11">
           <div className="bs">
             <h2>Welcome to the Admin Section</h2>
-            <RegisterButton />
+            <Registeradmin /> <Registeruser />
             <div>
               <h3>List of Tickets:</h3>
               <table>
@@ -40,8 +43,7 @@ function Adminscreen() {
                   <tr>
                     <th>S.No.</th>
                     <th>Name</th>
-                    <th>Lab No.</th>
-                    <th>PC No.</th>
+                    <th>System Id</th>
                     <th>Issue</th>
                     <th>Ticket Status</th>
                     <th>View/Update Ticket</th>
@@ -51,14 +53,13 @@ function Adminscreen() {
                 <tbody>
                   {data.map((item) => (
                     <tr key={item.id}>
-                      <td>{item.id}</td>
-                      <td>{item.name}</td>
-                      <td>{item.lab}</td>
-                      <td>{item.pc}</td>
+                      <td></td>
+                      <td>{item.studentName}</td>
+                      <td>{item.systemId}</td>
                       <td>{item.issueTitle}</td>
                       <td>{item.status}</td>
                       <td>
-                        <Link to={`/admin/view/${item.id}`}>
+                        <Link to={`/admin/view/${item.ticketId}`}>
                           <button className="btn btn-primary mt-3">
                             View Ticket
                           </button>
@@ -67,7 +68,7 @@ function Adminscreen() {
                       <td>
                         <button
                           className="btn btn-primary mt-3"
-                          onClick={() => handleDelete(`${item.id}`)}
+                          onClick={() => handleDelete(`${item.ticketId}`)}
                         >
                           Delete
                         </button>

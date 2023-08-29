@@ -12,28 +12,14 @@ function Loginscreen() {
   const [flag, setFlag] = useState(false);
 
   const handleClick = () => {
-    Userservice.get()
+    Userservice.getByPrnAndPassword(prn,password)
       .then((response) => {
         console.log(response.data);
-        response.data.map((obj) => {
-          if (obj.prn === prn && obj.password === password) {
-            Userservice.getByPrn(prn)
-              .then((response) => {
-                console.log(prn);
-                setData(response.data);
-                navigate(`/user/${prn}`);
-              })
-              .catch((error) => {
-                console.log("Error: " + error);
-              });
-          } else {
-            console.log("error");
-            setFlag(true);
-          }
-        });
+        navigate(`/user/${response.data.prn}`);
       })
       .catch((error) => {
         console.log("Error: " + error);
+        setFlag(true);
       });
   };
 

@@ -10,9 +10,9 @@ function Changepwduser() {
     textAlign: "left",
     margin: "10px",
   };
-  const [email, setEmail] = useState("");
-  const [newpwd, setNewPwd] = useState("");
-  const [cnewpwd, setCNewPwd] = useState("");
+  const [oldPassword, setOldPassword] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+  const [confirmNewPassword, setConfirmNewPassword] = useState("");
   const { prn } = useParams();
   const [success, setSuccess] = useState(false);
   const [fail, setFail] = useState(false);
@@ -26,18 +26,19 @@ function Changepwduser() {
     return () => clearTimeout(timeout);
   }, [showComponent]);
   const data = {
-    email,
-    newpwd,
+    prn,
+    oldPassword,
+    newPassword,
   };
 
   function handleClick() {
-    if (newpwd === cnewpwd) {
-      Userservice.changePassword(prn, data)
+    if (newPassword === confirmNewPassword) {
+      Userservice.changePassword(data)
         .then((response) => {
           setSuccess(true);
-          setEmail("");
-          setNewPwd("");
-          setCNewPwd("");
+          setOldPassword("");
+          setNewPassword("");
+          setConfirmNewPassword("");
           console.log("Data added ");
         })
         .catch((error) => {
@@ -70,15 +71,15 @@ function Changepwduser() {
             <br />
             <div style={divstyle}>
               <label>
-                <b>Enter your Email:</b>
+                <b>Enter Old Password:</b>
               </label>
               <input
-                type="text"
+                type="password"
                 className="form-control"
-                placeholder="Email"
-                value={email}
+                placeholder="Old Password"
+                value={oldPassword}
                 onChange={(e) => {
-                  setEmail(e.target.value);
+                  setOldPassword(e.target.value);
                 }}
               />
               <br />
@@ -89,9 +90,9 @@ function Changepwduser() {
                 type="password"
                 className="form-control"
                 placeholder="New Password"
-                value={newpwd}
+                value={newPassword}
                 onChange={(e) => {
-                  setNewPwd(e.target.value);
+                  setNewPassword(e.target.value);
                 }}
               />
               <br />
@@ -102,9 +103,9 @@ function Changepwduser() {
                 type="password"
                 className="form-control"
                 placeholder="Confirm New Password"
-                value={cnewpwd}
+                value={confirmNewPassword}
                 onChange={(e) => {
-                  setCNewPwd(e.target.value);
+                  setConfirmNewPassword(e.target.value);
                 }}
               />
               <br />

@@ -1,43 +1,61 @@
 import axios from "axios";
 
-const url = "http://localhost:3000/ticketlist";
-const url2 = "http://localhost:3000/admins";
-const url3 = "http://localhost:3000/adminsnew";
+const url = "http://localhost:8080/admin";
 
-const getAll = () => {
-  return axios.get(url);
+const registerUser = (data) => {
+  return axios.post(url+`/newstudent`,data);
+}
+
+const registerAdmin = (data) => {
+  return axios.post(url+`/newadmin`,data);
+}
+
+const getAdminByUnameAndPassword = (uname,password) => {
+  return axios.put(url,{uname,password});
 };
 
-const getById = (id) => {
-  return axios.get(url + `/${id}`);
+const getAllTickets = () => {
+  return axios.get(url+`/ticketlist`);
 };
 
-const getAdminById = (id) => {
-  return axios.get(url2 + `/${id}`);
+const getTicketById = (id) => {
+  return axios.get(url + `/ticket/${id}`);
 };
 
-const getAdmin = () => {
-  return axios.get(url2);
+
+const deleteByTicketId = (ticketId) => {
+  return axios.delete(url + `/ticket/${ticketId}`);
 };
 
-const deleteById = (id) => {
-  return axios.delete(url + `/${id}`);
-};
+// Change Admin Password
+const changePassword =(data)=> {
+  return axios.put(url+`/changepassword`,data);
+}
 
-const changePassword = (id, data) => {
-  return axios.put(url2 + `/${id}`, data);
-};
+//Fetch Ticket Details
+const getTicketByTicketId = (ticketId) =>{
+  return axios.get(url+`/ticket/${ticketId}`);
+}
 
-const updateStatus = (id, data) => {
-  return axios.put(url + `/${id}`, data);
-};
+//Update Ticket Status
+const updateStatus = (ticketId,status) =>{
+  return axios.put(url+`/ticket`,{ticketId,status});
+}
+
+// Fetch Student Data
+const getByUname = (uname) =>{
+  return axios.get(url+`/${uname}`);
+}
 
 export default {
-  getAll,
-  getById,
-  deleteById,
-  getAdmin,
-  getAdminById,
+  getAllTickets,
+  getTicketById,
+  deleteByTicketId,
   changePassword,
   updateStatus,
+  registerUser,
+  registerAdmin,
+  getAdminByUnameAndPassword,
+  getTicketByTicketId,
+  getByUname
 };

@@ -10,14 +10,15 @@ function Changepwdadmin() {
     textAlign: "left",
     margin: "10px",
   };
-  const [email, setEmail] = useState("");
-  const [newpwd, setNewPwd] = useState("");
-  const [cnewpwd, setCNewPwd] = useState("");
-  const { id } = useParams();
+  const [oldPassword, setOldPassword] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+  const [confirmNewPassword, setConfirmNewPassword] = useState("");
+  const { uname } = useParams();
   const [success, setSuccess] = useState(false);
   const [fail, setFail] = useState(false);
   const[showComponent, setShowComponent] = useState(false);
 
+  
   useEffect(() => {
     const timeout = setTimeout(() => {
       setShowComponent(false);
@@ -27,19 +28,20 @@ function Changepwdadmin() {
   }, [showComponent]);
 
   const data = {
-    email,
-    newpwd,
+    uname,
+    oldPassword,
+    newPassword,
   };
 
   function handleClick() {
-    if (newpwd === cnewpwd) {
-      Adminservice.changePassword(id, data)
+    if (newPassword === confirmNewPassword) {
+      Adminservice.changePassword(data)
         .then((response) => {
           setSuccess(true);
-          setEmail("");
-          setNewPwd("");
-          setCNewPwd("");
-          console.log("Data added ");
+          setOldPassword("");
+          setNewPassword("");
+          setConfirmNewPassword("");
+          console.log(response.data);
         })
         .catch((error) => {
           console.log("Error: " + error);
@@ -67,15 +69,15 @@ function Changepwdadmin() {
             <br />
             <div style={divstyle}>
               <label>
-                <b>Enter your Email:</b>
+                <b>Enter Old Password:</b>
               </label>
               <input
-                type="text"
+                type="password"
                 className="form-control"
-                placeholder="Email"
-                value={email}
+                placeholder="Old Password"
+                value={oldPassword}
                 onChange={(e) => {
-                  setEmail(e.target.value);
+                  setOldPassword(e.target.value);
                 }}
               />
               <br />
@@ -86,9 +88,9 @@ function Changepwdadmin() {
                 type="password"
                 className="form-control"
                 placeholder="New Password"
-                value={newpwd}
+                value={newPassword}
                 onChange={(e) => {
-                  setNewPwd(e.target.value);
+                  setNewPassword(e.target.value);
                 }}
               />
               <br />
@@ -99,9 +101,9 @@ function Changepwdadmin() {
                 type="password"
                 className="form-control"
                 placeholder="Confirm New Password"
-                value={cnewpwd}
+                value={confirmNewPassword}
                 onChange={(e) => {
-                  setCNewPwd(e.target.value);
+                  setConfirmNewPassword(e.target.value);
                 }}
               />
               <br />

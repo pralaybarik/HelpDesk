@@ -23,8 +23,13 @@ function Navbaruser() {
         <a className="navbar-brand">Computer Lab Help Desk</a>
 
         <div className="collapse navbar-collapse" id="navbarNav">
-          <ul className="navbar-n">
-            <div className="nav-item dropdown">
+          <ul className="navbar-nav">
+            <li className="nav-item">
+              <a className="nav-link" href={`/user/${prn}`}>
+                Home
+              </a>
+            </li>
+            <div className="nav-item dropdown" style={{ paddingRight: "5rem" }}>
               <a
                 className="nav-link dropdown-toggle"
                 href="#"

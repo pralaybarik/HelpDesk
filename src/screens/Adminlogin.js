@@ -12,28 +12,14 @@ function Adminlogin() {
   const [flag, setFlag] = useState(false);
 
   const handleClick = () => {
-    Adminservice.getAdmin()
+    Adminservice.getAdminByUnameAndPassword(uname, password)
       .then((response) => {
-        console.log(response.data);
-        response.data.map((obj) => {
-          if (obj.uname === uname && obj.password === password) {
-            Adminservice.getAdminById(obj.id)
-              .then((response) => {
-                console.log(obj.id);
-                setData(response.data);
-                navigate(`/admin/${obj.id}`);
-              })
-              .catch((error) => {
-                console.log("Error: " + error);
-              });
-          } else {
-            console.log("error");
-            setFlag(true);
-          }
-        });
+        console.log(response.data.uname);
+        navigate(`/admin/${response.data.uname}`);
       })
       .catch((error) => {
         console.log("Error: " + error);
+        setFlag(true);
       });
   };
 
@@ -76,13 +62,6 @@ function Adminlogin() {
             >
               Login
             </button>
-            <p>
-              <br />
-              Need an Account?
-              <span>
-                <a href="/register">Click here to Register</a>
-              </span>
-            </p>
           </div>
         </div>
       </div>

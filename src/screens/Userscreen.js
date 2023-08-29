@@ -9,10 +9,9 @@ function Userscreen() {
     textAlign: "left",
     margin: "20px",
   };
-  const [pc, setPc] = useState("");
-  const [lab, setLab] = useState("");
-  const [title, setTitle] = useState("");
-  const [detail, setDetail] = useState("");
+  const [systemId, setSystemId] = useState("");
+  const [issueTitle, setIssueTitle] = useState("");
+  const [issueDescription, setIssueDescription] = useState("");
   const [data, setData] = useState({});
   const { prn } = useParams();
   const [flag, setFlag] = useState(false);
@@ -30,19 +29,18 @@ function Userscreen() {
   }, []);
 
   const info = {
-    pc,
-    lab,
-    title,
-    detail,
+    systemId,
+    issueTitle,
+    issueDescription,
+    prn,
   };
 
   function handleClick() {
-    Userservice.post(info)
+    Userservice.createTicket(info)
       .then((response) => {
-        setPc("");
-        setLab("");
-        setTitle("");
-        setDetail("");
+        setSystemId("");
+        setIssueTitle("");
+        setIssueDescription("");
         setFlag(true);
         console.log("Data added ");
       })
@@ -62,40 +60,27 @@ function Userscreen() {
             <br />
             <div style={divstyle}>
               <label>
-                <b>Enter your PC Number:</b>
+                <b>Enter your System Id: </b>
                 <input
                   type="text"
                   className="form-control"
-                  value={pc}
+                  placeholder="Lab Number-PC Number"
+                  value={systemId}
                   onChange={(e) => {
-                    setPc(e.target.value);
+                    setSystemId(e.target.value);
                   }}
                 />
               </label>
               <br />
               <br />
               <label>
-                <b>Enter your Lab Number:</b>
+                <b>Enter the Title of the Issue:</b>
                 <input
                   type="text"
                   className="form-control"
-                  label="Enter your Lab Number"
-                  value={lab}
+                  value={issueTitle}
                   onChange={(e) => {
-                    setLab(e.target.value);
-                  }}
-                />
-              </label>
-              <br />
-              <br />
-              <label>
-                <b>Enter the title of the Issue:</b>
-                <input
-                  type="text"
-                  className="form-control"
-                  value={title}
-                  onChange={(e) => {
-                    setTitle(e.target.value);
+                    setIssueTitle(e.target.value);
                   }}
                 />
               </label>
@@ -109,9 +94,9 @@ function Userscreen() {
                   cols={200}
                   type="text"
                   className="form-control"
-                  value={detail}
+                  value={issueDescription}
                   onChange={(e) => {
-                    setDetail(e.target.value);
+                    setIssueDescription(e.target.value);
                   }}
                 ></textarea>
               </label>

@@ -1,6 +1,7 @@
 import React from "react";
 import Navbar from "../components/Navbar";
 import home from "../images/homepage1.jpg";
+import logo from "../images/project_logo.png";
 
 function Homescreen() {
   return (
@@ -13,8 +14,11 @@ function Homescreen() {
               <div className="row">
               <div className="col-md-6 pt-5 pt-lg-0 order-2 order-lg-1 d-flex justify-content-center flex-column">
                 <h1>
+                  <div>
+                    <img src={logo} style={{width:"50%", height:"50%"}} alt="project_logo"/>
+                  </div>
                   Get your issues resolved with
-                  <strong className="brand-name"> ACTS समाधान</strong>
+                  <strong className="brand-name"> ACTS - "समाधान"</strong>
                 </h1>
                 <h2 className="my-3">
                   Team of expert technicians available 24*7
