@@ -41,7 +41,7 @@ function App() {
           {/* Routing for new student registration */}
           <Route path="/admin/:uname/register-user" element={<Adduser />} />
           {/* Routing for viewing a particular student ticket details */}
-          <Route path="/admin/view/:ticketId" element={<Adminview />} />
+          <Route path="/admin/:uname/view/:ticketId" element={<Adminview />} />
           {/* Routing for changing the admin password */}
           <Route
             path="/admin/:uname/change-admin-password"

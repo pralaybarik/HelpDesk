@@ -4,13 +4,7 @@ import { Link } from "react-router-dom";
 import Navbaradmin from "../components/Navbaradmin";
 import Registeradmin from "../components/Registeradmin";
 import Registeruser from "../components/Registeruser";
-// const Registerstudent = () => {
-//   return (
-//     <Link to="/admin/:uname/register-user">
-//       <button className="btn btn-primary mt-3">Add New Student</button>
-//     </Link>
-//   );
-// };
+import { useParams } from "react-router-dom";
 
 const handleDelete = (ticketId) => {
   if (window.confirm("Are you sure you want to delete this ticket?")) {
@@ -20,6 +14,17 @@ const handleDelete = (ticketId) => {
 
 function Adminscreen() {
   const [data, setData] = useState([]);
+  const { uname } = useParams();
+  const [user, setUser] = useState("");
+
+  Adminservice.getByUname(uname)
+    .then((response) => {
+      console.log(response.user);
+      setUser(response.user);
+    })
+    .catch((error) => {
+      console.log("Error: " + error);
+    });
 
   useEffect(() => {
     Adminservice.getAllTickets()
@@ -59,7 +64,7 @@ function Adminscreen() {
                       <td>{item.issueTitle}</td>
                       <td>{item.status}</td>
                       <td>
-                        <Link to={`/admin/view/${item.ticketId}`}>
+                        <Link to={`/admin/${uname}/view/${item.ticketId}`}>
                           <button className="btn btn-primary mt-3">
                             View Ticket
                           </button>

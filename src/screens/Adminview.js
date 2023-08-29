@@ -10,11 +10,22 @@ function Adminview() {
     margin: "20px",
   };
   const [data, setData] = useState({});
-  const { ticketId } = useParams();
+  const { ticketId, uname } = useParams();
   const [selectedOption, setSelectedOption] = useState("");
+  const [user, setUser] = useState("");
+
+  useEffect(() => {
+    Adminservice.getByUname(uname)
+      .then((response) => {
+        console.log(response.user);
+      })
+      .catch((error) => {
+        console.log("Error: " + error);
+      });
+  }, []);
 
   function handleChange() {
-    Adminservice.updateStatus(ticketId,selectedOption)
+    Adminservice.updateStatus(ticketId, selectedOption)
       .then((response) => {
         console.log(response.data);
       })
