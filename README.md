@@ -1,1 +1,0 @@
-Computer Lab – Help Desk (Acts – “समाधान”) is a web application made to resolve the issues faced by the students of CDAC Acts in their computer labs by generating a ticket to the technical team and provides an intuitive interface for both the administrations and the users.

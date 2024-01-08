@@ -1,0 +1,170 @@
+@import url('https://fonts.googleapis.com/css2?family=Fira+Sans:wght@100&display=swap');
+
+#header {
+  width: 100%;
+  height: 80vh;
+  margin-top: 70px;
+}
+
+#header .h1 {
+  margin: 0 0 10px 0;
+  font-size: 45px;
+  font-weight: 700;
+  color: black;
+}
+
+#header .brand-name {
+  color: #3498db;
+}
+
+#header h2 {
+  color: #484848;
+  font-size: 20px !important;
+}
+
+#header .btn-about-us {
+  font-weight: 500;
+  font-size: 16px;
+  letter-spacing: 1px;
+  display: inline-block;
+  padding: 10px 30px;
+  border-radius: 50px;
+  transition: 0.5s;
+  color: #3498db;
+  border: 2px solid #3498db;
+  text-decoration: none;
+}
+
+#header .btn-about-us:hover {
+  background: #3498db;
+  color: #fff;
+}
+
+.header-img {
+  text-align: right;
+}
+
+#header .animated {
+  animation: up-down 2s ease-in-out infinite alternate-reverse both;
+}
+
+@-webkit-keyframes up-down {
+  0% {
+    transform: translateY(10px);
+  }
+  100% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes up-down {
+  0% {
+    transform: translateY(10px);
+  }
+  100% {
+    transform: translateY(-10px);
+  }
+}
+
+body {
+  margin: 0;
+  font-family: sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: sans-serif;
+}
+
+.navbar {
+  background-color: #2a3f54 !important;
+}
+
+.nav-link {
+  color: white !important;
+}
+
+.navbar-brand {
+  color: white !important;
+}
+
+.navbar-nav {
+  margin-left: auto !important;
+}
+
+.nav-item-dropdown {
+  margin-left: auto !important;
+}
+
+.navbar-ul {
+  padding: 0;
+  margin: 0;
+}
+
+img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+input {
+  box-shadow: none;
+  margin-top: 10px;
+  border:1px solid black !important;
+}
+
+.bs {
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  margin-top:20px !important;
+  border-radius:5px !important;
+  padding:20px !important;
+}
+
+h2 {
+  font-size:30px !important;
+  padding:10px;
+  font-weight: bold !important;
+}
+
+select {
+  width: 15%;
+  border-radius: 5px !important;
+  padding: 6px;
+  box-shadow: none;
+  margin-top: 10px;
+  border:1px solid black !important;
+}
+
+table {
+  width: 100%;
+  height: 100%;
+  font-size: large;
+  border-collapse: separate;
+  border-spacing: 10px;
+  counter-reset: serial-number;
+}
+
+tbody tr {
+  counter-increment: serial-number;
+}
+
+tbody tr td:first-child::before {
+  content: counter(serial-number);
+}
+
+
+h3 {
+  margin-right: 80%;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+textarea {
+  box-shadow: none;
+  margin-top: 10px;
+  border:1px solid black !important;
+}
+
+
+
